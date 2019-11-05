@@ -1,0 +1,151 @@
+# Chinese translations for PROJECT.
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2019-10-30 20:50+0800\n"
+"PO-Revision-Date: 2019-10-30 20:28+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh\n"
+"Language-Team: zh <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: app/forms.py:10 app/forms.py:17 app/forms.py:35
+msgid "Username"
+msgstr "帐号"
+
+#: app/forms.py:11 app/forms.py:19
+msgid "Password"
+msgstr "密码"
+
+#: app/forms.py:12
+msgid "Remember Me"
+msgstr "保持登录"
+
+#: app/forms.py:13 app/routes.py:105 app/templates/login.html:5
+msgid "Sign In"
+msgstr "登录"
+
+#: app/forms.py:18
+msgid "Email"
+msgstr "邮件"
+
+#: app/forms.py:21
+msgid "Repeat Password"
+msgstr "重复密码"
+
+#: app/forms.py:22 app/routes.py:120 app/templates/register.html:5
+msgid "Register"
+msgstr "注册"
+
+#: app/forms.py:36
+msgid "About me"
+msgstr "关于我"
+
+#: app/forms.py:37 app/forms.py:52
+msgid "Submit"
+msgstr "提交"
+
+#: app/forms.py:50
+msgid "Say something"
+msgstr "说点什么吧"
+
+#: app/routes.py:39
+msgid "Home Page"
+msgstr "主页"
+
+#: app/routes.py:53 app/templates/base.html:22
+msgid "Explore"
+msgstr "探索"
+
+#: app/routes.py:98
+msgid "Invalid username or password"
+msgstr "错误的用户名或密码"
+
+#: app/routes.py:136 app/templates/edit_profile.html:5
+msgid "Edit Profile"
+msgstr "资料编辑"
+
+#: app/templates/404.html:4
+msgid "Not Found"
+msgstr "找不到"
+
+#: app/templates/500.html:6
+msgid "Back"
+msgstr "回主页"
+
+#: app/templates/_post.html:12
+msgid "said"
+msgstr "说"
+
+#: app/templates/base.html:4 app/templates/base.html:17
+msgid "Microblog"
+msgstr "微博客"
+
+#: app/templates/base.html:4
+msgid "Welcome to Microblog"
+msgstr "欢迎来到微博客"
+
+#: app/templates/base.html:21
+msgid "Home"
+msgstr "主页"
+
+#: app/templates/base.html:23
+msgid "Users"
+msgstr "用户"
+
+#: app/templates/base.html:27
+msgid "Login"
+msgstr "登录"
+
+#: app/templates/base.html:29
+msgid "Profile"
+msgstr "资料"
+
+#: app/templates/base.html:30
+msgid "Logout"
+msgstr "登出"
+
+#: app/templates/index.html:17 app/templates/user.html:29
+msgid "Newer posts"
+msgstr "新文章"
+
+#: app/templates/index.html:22 app/templates/user.html:34
+msgid "Older posts"
+msgstr "旧文章"
+
+#: app/templates/login.html:12
+msgid "New User"
+msgstr "新用户"
+
+#: app/templates/login.html:12
+msgid "Click to Register"
+msgstr "点击注册"
+
+#: app/templates/user.html:8
+msgid "User"
+msgstr "用户"
+
+#: app/templates/user.html:13
+msgid "Edit your profile"
+msgstr "编辑你的资料"
+
+#: app/templates/user.html:15
+msgid "Follow"
+msgstr "关注"
+
+#: app/templates/user.html:17
+msgid "Unfollow"
+msgstr "取消关注"
+
+#~ msgid "回主页"
+#~ msgstr ""
+

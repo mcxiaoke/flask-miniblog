@@ -1,0 +1,23 @@
+env
+venv
+*.pdsbak
+*.workspace
+*.tmp
+*.obj
+*.hex
+*.elf
+*.bin
+*.out
+build
+.DS_Store
+Objects
+Backup Of *
+config.h
+__pycache__
+*.pyc
+*.log
+*.db
+.vscode
+config.py
+config.ini
+config.json
