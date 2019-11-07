@@ -2,27 +2,31 @@
 {% extends "base.html" %} 
 
 {% block content %}
+<div class="container">
 <h1>All Users</h1>
-<hr />
-<table>
-    <tr align="center">
+<div class="table-responsive">
+<table class="table">
+    <thead>
+    <tr>
         <th>Avatar</th>
-        <th>UserId</td>
+        <th>UserId</th>
         <th>UserName</th>
         <th>Email</th>
-        <th>About</th>
         <th>Followed</th>
     </tr>
+</thead>
+<tbody>
     {% for user in users %}
-    <tr align="center">
+    <tr>
         <td><img src="{{ user.avatar(36) }}" /></td>
         <td>{{ user.id }}</td>
         <td><a href={{url_for('main.user', username=user.username)}}>{{ user.username }}</a></td>
         <td>{{ user.email }}</td>
-        <td>{{user.about_me or ""}}</td>
         <td>{{current_user.is_following(user) and "Yes" or "No"}}</td>
     </tr>
     {% endfor %}
+</tbody>
 </table>
-
+</div>
+</div>
 {% endblock %}

@@ -1,0 +1,12 @@
+body {
+  padding-top: 70px;
+}
+
+.table-responsive > .table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}

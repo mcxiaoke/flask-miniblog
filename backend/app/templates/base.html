@@ -1,68 +1,61 @@
-{% extends 'bootstrap/base.html' %} {% block title %} {% if title %}{{
-    title
-}}
-- {{ _("Microblog") }}{% else %}{{ _("Welcome to Microblog") }}{% endif %} {%
-endblock %} {% block navbar %}
-<nav class="navbar navbar-default">
-    <div class="container">
-        <div class="navbar-header">
-            <button
-                type="button"
-                class="navbar-toggle collapsed"
-                data-toggle="collapse"
-                data-target="#bs-example-navbar-collapse-1"
-                aria-expanded="false"
-            >
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">{{
-                _("Microblog")
-            }}</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="{{ url_for('main.index') }}">{{ _("Home") }}</a>
-                </li>
-                <li>
-                    <a href="{{ url_for('main.explore') }}">{{
-                        _("Explore")
-                    }}</a>
-                </li>
-                <li>
-                    <a href="{{ url_for('main.users') }}">{{ _("Users") }}</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                {% if current_user.is_anonymous %}
-                <li>
-                    <a href="{{ url_for('auth.login') }}">{{ _("Login") }}</a>
-                </li>
-                {% else %}
-                <li>
-                    <a
-                        href="{{ url_for('main.user', username=current_user.username) }}"
-                        >{{ _("Profile") }}</a
-                    >
-                </li>
-                <li>
-                    <a href="{{ url_for('auth.logout') }}">{{ _("Logout") }}</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
+{% extends 'bootstrap/base.html' %} {% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static', filename='custom.css')}}" />
+{% endblock %} {% block title %} {% if title %}{{ title }} - {{ _("Microblog") }}{% else %}{{
+  _("Welcome to Microblog")
+}}{% endif %} {% endblock %} {% block navbar %}
+<nav class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#bs-navbar-collapse-1"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ url_for('main.index') }}">{{ _("Microblog") }}</a>
     </div>
+    <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+      <ul class="nav navbar-nav ">
+        <li>
+          <a href="{{ url_for('main.index') }}">{{ _("Home") }}</a>
+        </li>
+        <li>
+          <a href="{{ url_for('main.explore') }}">{{ _("Explore") }}</a>
+        </li>
+        <li>
+          <a href="{{ url_for('main.users') }}">{{ _("Users") }}</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if current_user.is_anonymous %}
+        <li>
+          <a href="{{ url_for('auth.login') }}">{{ _("Login") }}</a>
+        </li>
+        {% else %}
+        <li>
+          <a href="{{ url_for('main.user', username=current_user.username) }}">{{ _("Profile") }}</a>
+        </li>
+        <li>
+          <a href="{{ url_for('auth.logout') }}">{{ _("Logout") }}</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
 </nav>
 {% endblock %} {% block content %}
 <div class="container">
-    {% with messages = get_flashed_messages() %} {% if messages %} {% for
-    message in messages %}
-    <div class="alert alert-info" role="alert">{{ message }}</div>
-    {% endfor %} {% endif %} {% endwith %} {# application content needs to be
-    provided in the app_content block #} {% block app_content %}{% endblock %}
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+  <div class="alert alert-info" role="alert">{{ message }}</div>
+  {% endfor %} {% endif %} {% endwith %} {# application content needs to be provided in the app_content block #} {%
+  block app_content %}{% endblock %}
 </div>
 {% block scripts %}
 {{ super() }}
@@ -70,112 +63,108 @@ endblock %} {% block navbar %}
 {{ moment.lang(g.locale) }}
 
 <script>
-    $(function() {
-        let timer = null;
-        let xhr = null;
-        // unbind fix jquery event trigger twice
-        $(".user_popup")
-            .unbind("mouseenter")
-            .unbind("mouseleave")
-            .hover(
-                function(event) {
-                    // mouse in event handler
-                    let elem = $(event.currentTarget);
-                    timer = setTimeout(function() {
-                        timer = null;
-                        console.log("user_popup ajax send");
-                        xhr = $.ajax(
-                            "/user/" +
-                                elem
-                                    .first()
-                                    .text()
-                                    .trim() +
-                                "/popup"
-                        ).done(function(data) {
-                            xhr = null;
-                            elem.popover({
-                                trigger: "manual",
-                                html: true,
-                                animation: false,
-                                container: elem,
-                                content: data
-                            }).popover("show");
-                            flask_moment_render_all();
-                        });
-                    }, 1000);
-                },
-                function(event) {
-                    console.log("user_popup hover cancel");
-                    fired = false;
-                    // mouse out event handler
-                    let elem = $(event.currentTarget);
-                    if (timer) {
-                        clearTimeout(timer);
-                        timer = null;
-                    } else if (xhr) {
-                        xhr.abort();
-                        xhr = null;
-                    } else {
-                        elem.popover("destroy");
-                    }
-                }
-            );
-    });
+  $(function() {
+    let timer = null;
+    let xhr = null;
+    // unbind fix jquery event trigger twice
+    $(".user_popup")
+      .unbind("mouseenter")
+      .unbind("mouseleave")
+      .hover(
+        function(event) {
+          // mouse in event handler
+          let elem = $(event.currentTarget);
+          timer = setTimeout(function() {
+            timer = null;
+            console.log("user_popup ajax send");
+            xhr = $.ajax(
+              "/user/" +
+                elem
+                  .first()
+                  .text()
+                  .trim() +
+                "/popup"
+            ).done(function(data) {
+              xhr = null;
+              elem
+                .popover({
+                  trigger: "manual",
+                  html: true,
+                  animation: false,
+                  container: elem,
+                  content: data
+                })
+                .popover("show");
+              flask_moment_render_all();
+            });
+          }, 1000);
+        },
+        function(event) {
+          console.log("user_popup hover cancel");
+          fired = false;
+          // mouse out event handler
+          let elem = $(event.currentTarget);
+          if (timer) {
+            clearTimeout(timer);
+            timer = null;
+          } else if (xhr) {
+            xhr.abort();
+            xhr = null;
+          } else {
+            elem.popover("destroy");
+          }
+        }
+      );
+  });
 </script>
 <script>
-    function onEventByClass(className, event, fn) {
-        var list = document.getElementsByClassName(className);
-        for (var i = 0, len = list.length; i < len; i++) {
-            list[i].addEventListener(event, fn, false);
-        }
+  function onEventByClass(className, event, fn) {
+    var list = document.getElementsByClassName(className);
+    for (var i = 0, len = list.length; i < len; i++) {
+      list[i].addEventListener(event, fn, false);
     }
-    function downButtonClick(e) {
-        // e.preventDefault();
-        var elem = event.currentTarget;
-        console.log(elem);
-        console.log("ajax down vote send");
-        let xhr = $.post("/posts/" + elem.dataset.pid + "/downvotes").done(
-            function(data) {
-                console.log(data);
-                elem.getElementsByTagName("span")[1].textContent =
-                    data["downvotes"];
-            }
-        );
-    }
-    function upButtonClick(e) {
-        // e.preventDefault();
-        var elem = event.currentTarget;
-        console.log(elem);
-        console.log("ajax up vote send");
-        let xhr = $.post("/posts/" + elem.dataset.pid + "/upvotes").done(
-            function(data) {
-                console.log(data);
-                elem.getElementsByTagName("span")[1].textContent =
-                    data["upvotes"];
-            }
-        );
-    }
-    function translate(sourceElem, destElem, sourceLang, destLang) {
-        let imgUrl = "{{ url_for('static', filename='loading.gif') }}";
-        $(destElem).html("<img src=" + imgUrl + ">");
-        $.post("/translate", {
-            text: $(sourceElem).text(),
-            source_language: sourceLang,
-            dest_language: destLang
-        })
-            .done(function(response) {
-                $(destElem).text(response["text"]);
-            })
-            .fail(function() {
-                $(destElem).text("{{ _('Error: Could not contact server.') }}");
-            });
-    }
-    document.addEventListener("DOMContentLoaded", function() {
-        // $(".down-vote").on("click", );
-        // $(".up-vote").on("click", );
-        onEventByClass("down-vote", "click", downButtonClick);
-        onEventByClass("up-vote", "click", upButtonClick);
+  }
+  function downButtonClick(e) {
+    // e.preventDefault();
+    var elem = event.currentTarget;
+    console.log(elem);
+    console.log("ajax down vote send");
+    let xhr = $.post("/posts/" + elem.dataset.pid + "/downvotes").done(function(data) {
+      console.log(data);
+      elem.getElementsByTagName("span")[1].textContent = data["downvotes"];
     });
+  }
+  function upButtonClick(e) {
+    // e.preventDefault();
+    var elem = event.currentTarget;
+    console.log(elem);
+    console.log("ajax up vote send");
+    let xhr = $.post("/posts/" + elem.dataset.pid + "/upvotes").done(function(data) {
+      console.log(data);
+      elem.getElementsByTagName("span")[1].textContent = data["upvotes"];
+    });
+  }
+  function translate(sourceElem, destElem, sourceLang, destLang) {
+    let imgUrl = "{{ url_for('static', filename='loading.gif') }}";
+    $(destElem).html("<img src=" + imgUrl + ">");
+    $.post("/translate", {
+      text: $(sourceElem).text(),
+      source_language: sourceLang,
+      dest_language: destLang
+    })
+      .done(function(response) {
+        $(destElem).text(response["text"]);
+      })
+      .fail(function() {
+        $(destElem).text("{{ _('Error: Could not contact server.') }}");
+      });
+  }
+  document.addEventListener("DOMContentLoaded", function() {
+    // $(".down-vote").on("click", );
+    // $(".up-vote").on("click", );
+    onEventByClass("down-vote", "click", downButtonClick);
+    onEventByClass("up-vote", "click", upButtonClick);
+  });
 </script>
 
 {% endblock %} {% endblock %}
