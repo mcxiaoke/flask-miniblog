@@ -46,7 +46,7 @@ Pillow==8.1.1
 prison==0.1.2
 pycodestyle==2.5.0
 pyflakes==2.1.1
-PyJWT==1.7.1
+PyJWT==2.4.0
 pylint==2.4.2
 pyrsistent==0.15.4
 python-dateutil==2.8.0
